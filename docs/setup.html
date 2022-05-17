@@ -41,9 +41,9 @@ window.addEventListener('DOMContentLoaded', async(e)=>{
 async function sendMona() {
     const to = 'MEHCqJbgiNERCH3bRAtNSSD9uxPViEX1nu' // 宛先
     const asset = 'MONA' // 通貨（トークン名）
-    const amount = window.getElementById(`send-amount`).value // 量
+    const amount = document.getElementById(`send-amount`).value // 量
     const memoType = 'plain' // メモの型（'no', 'hex', 'plain'）
-    const memoValue = window.getElementById(`send-memo`).value // メモの内容
+    const memoValue = document.getElementById(`send-memo`).value // メモの内容
     const txHash = await window.mpurse.sendAsset(
         to,
         asset,
