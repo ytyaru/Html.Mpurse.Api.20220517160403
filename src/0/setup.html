@@ -43,7 +43,7 @@ async function sendMona() {
     const asset = 'MONA' // 通貨（トークン名）
     const amount = document.getElementById(`send-amount`).value // 量
     const memoType = 'plain' // メモの型（'no', 'hex', 'plain'）
-    const memoValue = document.getElementById(`send-memo`).value // メモの内容
+    const memoValue = document.getElementById(`send-memo`).value || 'Good job!' // メモの内容
     const txHash = await window.mpurse.sendAsset(
         to,
         asset,
