@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta charset="UTF-8">
+<title>5分で暗号通貨モナコインを使う方法</title>
+<meta name="description" content="5分で暗号通貨モナコインを使う方法">
+<meta name="author" content="ytyaru">
+<meta name="keywords" content="暗号通貨,暗号資産,仮想通貨,mona,coin,モナコイン,モナー,2ch,mpurse,api,javascript,js,分散ネットワーク,web3,p2p">
+<meta property="og:title" content="5分で暗号通貨モナコインを使う方法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ytyaru.github.io/Html.Mpurse.Api.20220517160403/" />
+<meta property="og:image" content="https://ytyaru.github.io/Html.Mpurse.Api.20220517160403/monacoin-487x487.png" />
+<meta property="og:site_name" content="ytyaru" />
+<meta property="og:description" content="Mpurseをセットアップする" />
+<meta property="article:published_time" content="2022-05-17T18:00:00+09:00" />
+<meta property="article:author" content="ytyaru" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+.note { background-color: #FF0000; color: #FFFFFF; }
+kbd {
+    font-family: Consolas, "Lucida Console", monospace;
+    display: inline-block;
+    padding: 0.25em;
+    border-radius: 0.25em;
+    background: #eee;
+    box-shadow: 1px 1px 1px #777;
+}
+</style>
+<script>
+// https://github.com/tadajam/mpurse
+// https://mpchain.info/doc
+window.addEventListener('DOMContentLoaded', async(e)=>{
+    const wait = (ms) => { return new Promise((resolve, reject) => { setTimeout(resolve, ms) }) }
+    await wait(100)
+    console.log(window.mpurse)
+    window.mpurse.updateEmitter.removeAllListeners()
+      .on('stateChanged', isUnlocked => console.log(isUnlocked))
+      .on('addressChanged', address => console.log(address));
+    async function sendMona() {
+        const to = 'MEHCqJbgiNERCH3bRAtNSSD9uxPViEX1nu' // 宛先
+        const asset = 'MONA' // 通貨（トークン名）
+        const amount = window.getElementById(`mona-amount`).value // 量
+        const memoType = 'plain' // メモの型（'no', 'hex', 'plain'）
+        const memoValue = window.getElementById(`send-memo`).value // メモの内容
+        const txHash = await window.mpurse.sendAsset(
+            to,
+            asset,
+            amount,
+            memoType,
+            memoValue,
+        );
+        console.log(`送金しました。`)
+        console.log(`宛先：${to}`)
+        console.log(`金額：${amount} ${asset}`)
+        console.log(`メモ：${memoValue}`)
+    }
+})
+</script>
+</head>
+
+<body>
+<h1>5分で暗号通貨モナコイン<img src="monacoin-logo.png" srcset="monacoin-logo.svg" alt="My logo" width=32 height=32>を使う方法</h1>
+
+<!--
+<p>Mpurseをセットアップする</p>
+
+<h1>Mpurseをセットアップする<img src="monacoin-logo.png" srcset="monacoin-logo.svg" alt="My logo" width=32 height=32></h1>
+-->
+
+<p>暗号通貨モナコイン<img src="monacoin-logo.png" srcset="monacoin-logo.svg" alt="My logo" width=16 height=16>を使うための<ruby>口座アプリ<rp>（</rp><rt>ウォレット</rt><rp>）</rp></ruby>である<ruby><a href="https://github.com/tadajam/mpurse">Mpurse</a><rp>（</rp><rt>エム パース</rt><rp>）</rp></ruby>のアカウントを5分で作る。</p>
+
+<h2>必要なもの</h2>
+<ul>
+<li>PCまたはスマホ</li>
+<li>インターネット接続環境</li>
+<li>所要時間５分</li>
+</ul>
+
+<h2>Mpurse をインストールする</h2>
+<p>ブラウザにMpurseをインストールする。</p>
+<ul>
+<li><a href="https://chrome.google.com/webstore/detail/mpurse/ljkohnccmlcpleonoiabgfggnhpkihaa">Chrome</a></li>
+<li><a href="https://addons.mozilla.org/ja/firefox/addon/mpchain_mpurse/">Firefox</a></li>
+</ul>
+<p>スマホの場合はアプリもある。iOSはアプリのみ使用可。</p>
+<ul>
+<li><a href="https://play.google.com/store/apps/details?id=info.mpchain.mpurse">Android</a></li>
+<li><a href="https://apps.apple.com/us/app/mpurse/id1494156643">iOS</a></li>
+</ul>
+<h3>アカウントを作る</h3>
+<ol>
+<li>ブラウザの拡張機能からMpurseのアイコンをクリックする</li>
+<li>画面の指示に従って登録する
+<ul class="note">
+<li><strong>パスワードを作っておき保存すること</strong></li>
+<li><strong>出力されたパスフレーズも保存すること</strong></li>
+</ul>
+</li>
+</ol>
+<p>⚠ パスワードとパスフレーズは今後モナコインを利用するのに必要です。忘れぬようメモしておきましょう。登録時、パスワードとパスフレーズをメモ帳にコピペ保存しながら登録するのが安全です。が、登録の途中でメモ帳にフォーカスすると、登録作業が最初からやり直しになってしまいます。そこで、コピペしつつ登録を完了できる手順を以下に示します。</p>
+<ol>
+<li><a href="https://www.luft.co.jp/cgi/randam.php">パスワードを生成する</a></li>
+<li>パスワードを<kbd>Ctrl</kbd>+<kbd>C</kbd>でコピーする</a></li>
+<li>テキストエディタを開き<kbd>Ctrl</kbd>+<kbd>V</kbd>でパスワードをペーストする</a></li>
+<li>ブラウザの拡張機能からMpurseのアイコンをクリックする</li>
+<li>利用規約の<kbd>同意</kbd>ボタンを押す</li>
+<li>Mpurseの登録画面にあるパスワード入力欄で<kbd>Ctrl</kbd>+<kbd>V</kbd>キーを押してパスワードを入力する</li>
+<li>確認入力も同じように入力する</li>
+<li><kbd>作成</kbd>ボタンをクリックする</li>
+<li>パスフレーズが出力される</li>
+<li>パスフレーズを<kbd>Ctrl</kbd>+<kbd>C</kbd>でコピーしておく</li>
+<li>チェックボックスにチェックを入れる（☑ 自分のパスフレーズをメモするなど安全な方法でバックアップしました。）</li>
+<li><kbd>保存</kbd>ボタンをクリックする</li>
+<li>以上で手続きは完了</li>
+<li>完了後、クリップボードのパスフレーズを<kbd>Ctrl</kbd>+<kbd>V</kbd>でテキストファイルにペーストする。</li>
+<li>テキストファイルを保存する</li>
+<li>テキストファイルを誰にもみせず厳重に保管する</li>
+</ol>
+
+<p>おつかれさまでした。これでモナコインをやりとりする口座ができました。次はモナコインを入手して支払いましょう。詳しくは以下。</p>
+
+<h2>ログインする</h2>
+<ol>
+<li>ブラウザの拡張機能からMpurseのアイコンをクリックする</li>
+<li>パスワードを入力する</li>
+</ol>
+
+<h2>モナコインを入手する</h2>
+<a href="https://monaledge.com/article/354">モナコインを獲得する方法とサイト集</a>を参照。
+
+<h2>モナコインを受け取るサイトを作る</h2>
+<a href="./index.html">Mpurse API を試す</a>を参照。
+
+<h2>モナコインを送る</h2>
+<p>このページの作者にモナコインを送る。</p>
+
+<table>
+<tr><td rowspan="3"><button onclick="sendMona()"><img src="monacoin-logo.png" srcset="monacoin-logo.svg" alt="My logo" width=64 height=64></button></td></tr>
+<tr><td></td><td><input id="mona-amount" type="number" value="0.114" step="0.00000001" width="4" min="0.001"></input>MONA</td></tr>
+<tr><td></td><td><input id="send-memo" value="いいね！"></input></td></tr>
+</table>
+<br>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</body>
+</html>
