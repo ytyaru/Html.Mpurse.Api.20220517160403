@@ -38,49 +38,48 @@ window.addEventListener('DOMContentLoaded', async(e)=>{
       .on('stateChanged', isUnlocked => console.log(isUnlocked))
       .on('addressChanged', address => console.log(address));
     await getMyInfo()
-
-    async function getAddress() {
-        const address = await window.mpurse.getAddress();
-        console.log(`アドレスを取得しました。`)
-        console.log(address)
-    }
-    async function sendMona() {
-        const to = 'MEHCqJbgiNERCH3bRAtNSSD9uxPViEX1nu' // 宛先
-        const asset = 'MONA' // 通貨（トークン名）
-        const amount = window.getElementById(`mona-amount`).value // 量
-        const memoType = 'plain' // メモの型（'no', 'hex', 'plain'）
-        const memoValue = window.getElementById(`send-memo`).value // メモの内容
-        const txHash = await window.mpurse.sendAsset(
-            to,
-            asset,
-            amount,
-            memoType,
-            memoValue,
-        );
-        console.log(`送金しました。`)
-        console.log(`宛先：${to}`)
-        console.log(`金額：${amount} ${asset}`)
-        console.log(`メモ：${memoValue}`)
-    }
-    async function sign() {
-        const message = window.getElementById(`sign-message`).value // メモの内容
-        const signature = await window.mpurse.signMessage(message);
-        console.log(`署名しました。`)
-        console.log(signature)
-    }
-    async function getMyInfo() {
-        const myAddress = await window.mpurse.getAddress()
-        const result = await window.mpurse.mpchain('address', { address: myAddress });
-        console.log(result)
-        console.log(JSON.stringify(result))
-        console.log(`あなたのアドレスは ${myAddress} です。`)
-        console.log(`あなたは ${result.mona_balance} MONA 所持しています。`)
-        console.log(`あなたは ${result.xmp_balance} XMP 所持しています。`)
-        document.getElementById(`my-address`).innerText = `${myAddress}`
-        document.getElementById(`my-mona`).innerText = `${result.mona_balance}`
-        document.getElementById(`my-xmp`).innerText = `${result.xmp_balance}`
-    }
 })
+async function getAddress() {
+    const address = await window.mpurse.getAddress();
+    console.log(`アドレスを取得しました。`)
+    console.log(address)
+}
+async function sendMona() {
+    const to = 'MEHCqJbgiNERCH3bRAtNSSD9uxPViEX1nu' // 宛先
+    const asset = 'MONA' // 通貨（トークン名）
+    const amount = window.getElementById(`send-amount`).value // 量
+    const memoType = 'plain' // メモの型（'no', 'hex', 'plain'）
+    const memoValue = window.getElementById(`send-memo`).value // メモの内容
+    const txHash = await window.mpurse.sendAsset(
+        to,
+        asset,
+        amount,
+        memoType,
+        memoValue,
+    );
+    console.log(`送金しました。`)
+    console.log(`宛先：${to}`)
+    console.log(`金額：${amount} ${asset}`)
+    console.log(`メモ：${memoValue}`)
+}
+async function sign() {
+    const message = window.getElementById(`sign-message`).value // メモの内容
+    const signature = await window.mpurse.signMessage(message);
+    console.log(`署名しました。`)
+    console.log(signature)
+}
+async function getMyInfo() {
+    const myAddress = await window.mpurse.getAddress()
+    const result = await window.mpurse.mpchain('address', { address: myAddress });
+    console.log(result)
+    console.log(JSON.stringify(result))
+    console.log(`あなたのアドレスは ${myAddress} です。`)
+    console.log(`あなたは ${result.mona_balance} MONA 所持しています。`)
+    console.log(`あなたは ${result.xmp_balance} XMP 所持しています。`)
+    document.getElementById(`my-address`).innerText = `${myAddress}`
+    document.getElementById(`my-mona`).innerText = `${result.mona_balance}`
+    document.getElementById(`my-xmp`).innerText = `${result.xmp_balance}`
+}
 </script>
  </head>
 
@@ -111,7 +110,7 @@ window.addEventListener('DOMContentLoaded', async(e)=>{
 <h2>APIを実行する</h2>
 <!--<button onclick="getAddress()">アドレスを取得する</button><br>-->
 <button onclick="sendMona()" title="このページの作者に、あなたが指定した金額を送金します。">送金する</button>
-<input id="mona-amount" type="number" value="0.114" step="0.00000001" min="0.001"></input>MONA
+<input id="send-amount" type="number" value="0.114" step="0.00000001" min="0.001"></input>MONA
 <input id="send-memo" value="いいね！"></input><br>
 <button onclick="sign()" title="ログインなどに利用できるAPIです。">署名する</button>
 <input id="sign-message" value="署名してみる"></input><br>
