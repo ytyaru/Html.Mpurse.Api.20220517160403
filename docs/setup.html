@@ -28,6 +28,7 @@
 <link rel="me" href="https://monaledge.com/user/MEHCqJbgiNERCH3bRAtNSSD9uxPViEX1nu">
 <link rel="me" href="https://web3.askmona.org/user/1590">
 
+<link rel="stylesheet" href="web-mention.css" >
 <style>
 .note { background-color: #FF0000; color: #FFFFFF; }
 .link { text-decoration: none; }
@@ -44,10 +45,16 @@ footer, footer iframe, footer a, footer img {
     vertical-align: middle;
 }
 </style>
+
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="web-mention.js"></script>
 <script>
 // https://github.com/tadajam/mpurse
 // https://mpchain.info/doc
 window.addEventListener('DOMContentLoaded', async(e)=>{
+    const mention = new WebMention(30) 
+    await mention.make() 
     const wait = (ms) => { return new Promise((resolve, reject) => { setTimeout(resolve, ms) }) }
     await wait(100)
     console.log(window.mpurse)
@@ -172,6 +179,9 @@ async function sendMona() {
 </table>
 
 <footer><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><a href="https://ytyaru.github.io/" title="著者"><img src="./avator.png" width="64" height="64">ytyaru</a></footer>
+
+<span id="web-mention-count"></span>
+<div id="web-mention-comment"></div>
 
 </body>
 </html>
